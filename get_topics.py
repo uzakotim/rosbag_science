@@ -1,5 +1,5 @@
 import rosbag
-bag = rosbag.Bag('./uav08/main.bag')
+bag = rosbag.Bag('../../ctu/uav08/main.bag')
 topics = bag.get_type_and_topic_info()[1].keys()
 for val in topics:
     print(val)
