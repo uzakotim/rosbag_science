@@ -16,6 +16,9 @@ def closest(l, R):
 def quadratic_distance(x,y,z,x_c,y_c,z_c):
     return sqrt((x-x_c)**2 +(y-y_c)**2 +(z-z_c)**2)
 
+def quadratic_distance2(x,y,x_c,y_c):
+    return sqrt((x-x_c)**2 +(y-y_c)**2 )
+
 points1 = pandas.read_csv("./main_results_uav4/main.bag_slow_odom_uav4.csv")
 points2 = pandas.read_csv("./main_results_uav8/main.bag_slow_odom_uav8.csv")
 points3 = pandas.read_csv("./main_results_uav11/main.bag_slow_odom_uav11.csv")
