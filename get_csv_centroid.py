@@ -13,7 +13,7 @@ import rospy
 # ##################
 
 filename = "main.bag"
-uav_name = "uav8"
+uav_name = "uav4"
 directory = "../../ctu/"+uav_name
 
 print("Reading the rosbag file")
@@ -25,18 +25,18 @@ if not filename.endswith(".bag"):
 bag = rosbag.Bag(directory + filename + extension)
 
 # Create directory with name filename (without extension)
-results_dir = "./"+ filename[:-4] + "_results_"+uav_name
+results_dir = "./"+ filename[:-4] + "_centroid_"+uav_name
 if not os.path.exists(results_dir):
   os.makedirs(results_dir)
 
 print("Writing robot joint state data to CSV")
 
-with open(results_dir +"/"+filename+'_slow_odom_'+uav_name+'.csv', mode='w') as data_file:
+with open(results_dir +"/"+filename+'_centroid_'+uav_name+'.csv', mode='w') as data_file:
   data_writer = csv.writer(data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
   data_writer.writerow(['time', 'x', 'y', 'z'])
   #data_writer.writerow(['x', 'y', 'z'])
   # Get all message on the /joint states topic
-  for topic, msg, t in bag.read_messages(topics=['/'+uav_name+'/odometry/slow_odom']):
+  for topic, msg, t in bag.read_messages(topics=['/'+uav_name+'/sensor_fusion_v2/centroid']):
     # Only write to CSV if the message is for our robot
       pose_x = msg.pose.pose.position.x
       pose_y = msg.pose.pose.position.y

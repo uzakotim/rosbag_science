@@ -64,5 +64,4 @@ z = points3['z'].values[-10:-1]
 ax.scatter(x,y,z,c='black',marker ='o',label="Finish")
 
 plt.legend(loc="upper left")
-plt.title("3D pathes during the experiment")
 plt.show()
