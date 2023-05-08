@@ -86,5 +86,8 @@ z = points['z_uav11'].values[start:finish]
 
 ax.scatter(x,y,z,c='g',marker ='o',label="detections: uav11")
 
+ax.set_xlabel("X")
+ax.set_ylabel("Y")
+ax.set_zlabel("Z")
 plt.legend(loc="upper left")
 plt.show()

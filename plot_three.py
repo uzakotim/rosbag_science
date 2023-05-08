@@ -63,5 +63,8 @@ z = points3['z'].values[-10:-1]
 
 ax.scatter(x,y,z,c='black',marker ='o',label="Finish")
 
+ax.set_xlabel("X")
+ax.set_ylabel("Y")
+ax.set_zlabel("Z")
 plt.legend(loc="upper left")
 plt.show()
