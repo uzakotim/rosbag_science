@@ -1,10 +1,15 @@
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import pandas
-
-points1 = pandas.read_csv("./main_results_uav4/main.bag_slow_odom_uav4.csv")
-points2 = pandas.read_csv("./main_results_uav8/main.bag_slow_odom_uav8.csv")
-points3 = pandas.read_csv("./main_results_uav11/main.bag_slow_odom_uav11.csv")
+simulation = True
+if simulation:
+    points1 = pandas.read_csv("./simulation_results_uav4/main.bag_slow_odom_uav4.csv")
+    points2 = pandas.read_csv("./simulation_results_uav8/main.bag_slow_odom_uav8.csv")
+    points3 = pandas.read_csv("./simulation_results_uav11/main.bag_slow_odom_uav11.csv")
+else:
+    points1 = pandas.read_csv("./main_results_uav4/main.bag_slow_odom_uav4.csv")
+    points2 = pandas.read_csv("./main_results_uav8/main.bag_slow_odom_uav8.csv")
+    points3 = pandas.read_csv("./main_results_uav11/main.bag_slow_odom_uav11.csv")
 
 fig = plt.figure()
 ax = fig.add_subplot(111,projection='3d')

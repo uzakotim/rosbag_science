@@ -2,7 +2,11 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import pandas
 import time
-distances = pandas.read_csv("./distances.csv")
+simulation = True
+if simulation:
+    distances = pandas.read_csv("./distances_simulation.csv")
+else:
+    distances = pandas.read_csv("./distances.csv")
 
 fig = plt.figure()
 # first points

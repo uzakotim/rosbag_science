@@ -25,16 +25,25 @@ def cost(x,y,x_prev,y_prev,goal_y,goal_x,obs_x,obs_y,obs_2_x,obs_2_y):
 	goal_depth   = 5
 	obst_weight  = 25
 	return 8*(x-x_prev)**2 + 8*(y-y_prev)**2 + (y-goal_y)**2 + (x-goal_x)**2 + height + obst_weight*exp(-((y-obs_y)**2)/width_obst)*exp(-((x-obs_x)**2)/width_obst)+ exp(-((y-obs_2_y)**2)/width_obst)*exp(-((x-obs_2_x)**2)/width_obst) - goal_depth*exp(-((x-goal_x)**2)/width_goal)*exp(-((y-goal_y)**2)/width_goal)
+simulation = True
 
-points1 = pandas.read_csv("./main_results_uav4/main.bag_slow_odom_uav4.csv")
-points2 = pandas.read_csv("./main_results_uav8/main.bag_slow_odom_uav8.csv")
-points3 = pandas.read_csv("./main_results_uav11/main.bag_slow_odom_uav11.csv")
-centroid = pandas.read_csv("./main_centroid_uav4/main.bag_centroid_uav4.csv")
-
+if simulation:
+    points1 = pandas.read_csv("./simulation_results_uav4/main.bag_slow_odom_uav4.csv")
+    points2 = pandas.read_csv("./simulation_results_uav8/main.bag_slow_odom_uav8.csv")
+    points3 = pandas.read_csv("./simulation_results_uav11/main.bag_slow_odom_uav11.csv")
+    centroid = pandas.read_csv("./simulation_centroid_uav4/main.bag_centroid_uav4.csv")
+else:
+    points1 = pandas.read_csv("./main_results_uav4/main.bag_slow_odom_uav4.csv")
+    points2 = pandas.read_csv("./main_results_uav8/main.bag_slow_odom_uav8.csv")
+    points3 = pandas.read_csv("./main_results_uav11/main.bag_slow_odom_uav11.csv")
+    centroid = pandas.read_csv("./main_centroid_uav4/main.bag_centroid_uav4.csv")
 t4 = centroid['time'].values
 last_centroid = [0,0,0]
-
-with open('./costs.csv', mode='w') as data_file:
+if simulation:
+    simul = '_simulation'
+else:
+    simul = ''
+with open('./costs'+ simul +'.csv', mode='w') as data_file:
     data_writer = csv.writer(data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     data_writer.writerow(['time', 'uav4', 'uav8', 'uav11'])
     first = True

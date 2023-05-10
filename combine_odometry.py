@@ -18,15 +18,24 @@ def quadratic_distance(x,y,z,x_c,y_c,z_c):
 
 def quadratic_distance2(x,y,x_c,y_c):
     return sqrt((x-x_c)**2 +(y-y_c)**2 )
-
-points1 = pandas.read_csv("./main_results_uav4/main.bag_slow_odom_uav4.csv")
-points2 = pandas.read_csv("./main_results_uav8/main.bag_slow_odom_uav8.csv")
-points3 = pandas.read_csv("./main_results_uav11/main.bag_slow_odom_uav11.csv")
-centroid = pandas.read_csv("./main_centroid_uav4/main.bag_centroid_uav4.csv")
-
+simulation = True
+if simulation:
+    simul = '_simulation'
+else:
+    simul = ''
+if simulation:
+    points1 = pandas.read_csv("./simulation_results_uav4/main.bag_slow_odom_uav4.csv")
+    points2 = pandas.read_csv("./simulation_results_uav8/main.bag_slow_odom_uav8.csv")
+    points3 = pandas.read_csv("./simulation_results_uav11/main.bag_slow_odom_uav11.csv")
+    centroid = pandas.read_csv("./simulation_centroid_uav4/main.bag_centroid_uav4.csv")
+else:
+    points1 = pandas.read_csv("./main_results_uav4/main.bag_slow_odom_uav4.csv")
+    points2 = pandas.read_csv("./main_results_uav8/main.bag_slow_odom_uav8.csv")
+    points3 = pandas.read_csv("./main_results_uav11/main.bag_slow_odom_uav11.csv")
+    centroid = pandas.read_csv("./main_centroid_uav4/main.bag_centroid_uav4.csv")
 t4 = centroid['time'].values
 last_centroid = [0,0,0]
-with open('./distances.csv', mode='w') as data_file:
+with open('./distances'+simul+'.csv', mode='w') as data_file:
     data_writer = csv.writer(data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     data_writer.writerow(['time', 'uav4', 'uav8', 'uav11'])
 
@@ -67,3 +76,4 @@ with open('./distances.csv', mode='w') as data_file:
         dist2 = quadratic_distance(x_2,y_2,z_2,x_c,y_c,z_c)
         dist3 = quadratic_distance(x_3,y_3,z_3,x_c,y_c,z_c)
         data_writer.writerow([el, dist1, dist2, dist3])
+print("Finished!")

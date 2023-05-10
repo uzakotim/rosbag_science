@@ -14,7 +14,12 @@ import rospy
 
 filename = "main.bag"
 uav_name = "uav4"
-directory = "../../ctu/"+uav_name
+simulation = True
+
+if simulation:
+  directory = "../../ctu/simulation"
+else:
+  directory = "../../ctu/"+uav_name
 
 print("Reading the rosbag file")
 if not directory.endswith("/"):
@@ -25,7 +30,10 @@ if not filename.endswith(".bag"):
 bag = rosbag.Bag(directory + filename + extension)
 
 # Create directory with name filename (without extension)
-results_dir = "./"+ filename[:-4] + "_centroid_"+uav_name
+if simulation:
+  results_dir = "./"+ "simulation" + "_centroid_"+uav_name
+else:
+  results_dir = "./"+ filename[:-4] + "_results_"+uav_name
 if not os.path.exists(results_dir):
   os.makedirs(results_dir)
 
@@ -43,6 +51,7 @@ with open(results_dir +"/"+filename+'_centroid_'+uav_name+'.csv', mode='w') as d
       pose_z = msg.pose.pose.position.z
       data_writer.writerow([t, pose_x, pose_y, pose_z])
       #data_writer.writerow([pose_x, pose_y, pose_z])
+
 
 print("Finished creating csv file!")
 bag.close()

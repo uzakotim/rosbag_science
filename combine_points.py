@@ -13,13 +13,23 @@ def closest(l, R):
 
     return closeToR  
 
-points1 = pandas.read_csv("./main_results_uav4/_blob_det_v2_points_uav4.csv")
-points2 = pandas.read_csv("./main_results_uav8/_blob_det_v2_points_uav8.csv")
-points3 = pandas.read_csv("./main_results_uav11/_blob_det_v2_points_uav11.csv")
+simulation = True
+if simulation:
+    simul = '_simulation'
+else:
+    simul = ''
+if simulation:
+    points1 = pandas.read_csv("./simulation_results_uav4/_blob_det_v2_points_uav4.csv")
+    points2 = pandas.read_csv("./simulation_results_uav8/_blob_det_v2_points_uav8.csv")
+    points3 = pandas.read_csv("./simulation_results_uav11/_blob_det_v2_points_uav11.csv")
+else:
+    points1 = pandas.read_csv("./main_results_uav4/_blob_det_v2_points_uav4.csv")
+    points2 = pandas.read_csv("./main_results_uav8/_blob_det_v2_points_uav8.csv")
+    points3 = pandas.read_csv("./main_results_uav11/_blob_det_v2_points_uav11.csv")
 
 t3 = points3['time'].values
 
-with open('./points.csv', mode='w') as data_file:
+with open('./points'+simul+'.csv', mode='w') as data_file:
     data_writer = csv.writer(data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     data_writer.writerow(['time', 'x_uav4','y_uav4','z_uav4','x_uav8','y_uav8','z_uav8','x_uav11','y_uav11','z_uav11'])
     for el in t3:
